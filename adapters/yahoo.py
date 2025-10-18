@@ -168,13 +168,77 @@ class YahooFinanceAdapter(baseDataAdapter):
 
         try:
             t = yf.Ticker(ticker)
-            if hasattr(t, 'fast_info') and t.fast_info:
-                info = dict(t.fast_info)
-                info['source'] = 'fast_info'
-            else:
-                info = t.info or {}
-                info['source'] = 'info'
+            # Always use full info (not fast_info) to get complete data including P/E, 52-week ranges, etc.
+            info = t.info or {}
+            info['source'] = 'info'
+            logging.info(f'Fetched info for {ticker} with {len(info)} fields')
             return info
         except Exception as e:
             logging.warning(f'Yahoo info error for {ticker}: {e}')
             return {'error': str(e), 'ticker': ticker}
+
+    def fetch_financials(self, ticker: str) -> pd.DataFrame:
+        """Fetch income statement (financials) or return empty DataFrame on failure."""
+        ticker = self._sanitize_ticker(ticker)
+        logging.info(f'Fetching financials for {ticker}')
+
+        if self._stub:
+            logging.warning('Using stub financials data')
+            return pd.DataFrame()
+
+        try:
+            t = yf.Ticker(ticker)
+            financials = t.financials
+            if financials is not None and not financials.empty:
+                logging.info(f'Fetched financials for {ticker}: {financials.shape}')
+                return financials
+            else:
+                logging.warning(f'Empty financials for {ticker}')
+                return pd.DataFrame()
+        except Exception as e:
+            logging.error(f'Error fetching financials for {ticker}: {e}')
+            return pd.DataFrame()
+
+    def fetch_balance_sheet(self, ticker: str) -> pd.DataFrame:
+        """Fetch balance sheet or return empty DataFrame on failure."""
+        ticker = self._sanitize_ticker(ticker)
+        logging.info(f'Fetching balance sheet for {ticker}')
+
+        if self._stub:
+            logging.warning('Using stub balance sheet data')
+            return pd.DataFrame()
+
+        try:
+            t = yf.Ticker(ticker)
+            balance_sheet = t.balance_sheet
+            if balance_sheet is not None and not balance_sheet.empty:
+                logging.info(f'Fetched balance sheet for {ticker}: {balance_sheet.shape}')
+                return balance_sheet
+            else:
+                logging.warning(f'Empty balance sheet for {ticker}')
+                return pd.DataFrame()
+        except Exception as e:
+            logging.error(f'Error fetching balance sheet for {ticker}: {e}')
+            return pd.DataFrame()
+
+    def fetch_cashflow(self, ticker: str) -> pd.DataFrame:
+        """Fetch cash flow statement or return empty DataFrame on failure."""
+        ticker = self._sanitize_ticker(ticker)
+        logging.info(f'Fetching cash flow for {ticker}')
+
+        if self._stub:
+            logging.warning('Using stub cash flow data')
+            return pd.DataFrame()
+
+        try:
+            t = yf.Ticker(ticker)
+            cashflow = t.cashflow
+            if cashflow is not None and not cashflow.empty:
+                logging.info(f'Fetched cash flow for {ticker}: {cashflow.shape}')
+                return cashflow
+            else:
+                logging.warning(f'Empty cash flow for {ticker}')
+                return pd.DataFrame()
+        except Exception as e:
+            logging.error(f'Error fetching cash flow for {ticker}: {e}')
+            return pd.DataFrame()
