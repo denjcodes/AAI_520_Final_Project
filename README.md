@@ -244,17 +244,17 @@ Results saved to: investment_analysis_AAPL_20250109_143022.json
 ## Project Structure
 
 ### Main Notebooks
-- **`Agentic_Invest_Research_System_Combined_v1.ipynb`** (recommended)
-  Latest version with clean output, all fixes applied
+- **`Agentic_Invest_Research_System_Combined_v2.ipynb`** (recommended)
+  Latest version with clean output, all fixes applied, refactored for reuse and clean code.  
 
-- **`Agentic_Invest_Research_System_Combined_v0.ipynb`**
-  Original version for reference
+- **`Agentic_Invest_Research_System_Combined_v1.ipynb`** 
+  Original version for reference, all fixes applied
 
 ### Documentation
 - **`README.md`** - This file
 
 ### Individual Contributions
-- **`Agentic_Invest_Research_System_Dennis.ipynb`** - Dennis Arpurayil
+- **`Agentic_Invest_Research_System_Dennis.ipynb`** - Dennis Johnson Arapurayil
 - **`Agentic_Invest_Research_System_Divya.ipynb`** - Divya Kamath
 - **`Agentic_Invest_Research_System_Pros.ipynb`** - Pros Loung
 
@@ -299,7 +299,7 @@ This is a university course project (AAI-520, University of San Diego). For ques
 **University**: University of San Diego
 **Team Members**:
 - Pros Loung
-- Dennis Arpurayil
+- Dennis Johnson Arapurayil
 - Divya Kamath
 
 ---
