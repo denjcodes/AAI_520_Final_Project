@@ -41,7 +41,7 @@ SEC_API_KEY=your-sec-api-key-here
 
 ```bash
 # Recommended: Latest version with clean output
-jupyter notebook Agentic_Invest_Research_System_Combined_v1.ipynb
+jupyter notebook Agentic_Invest_Research_System_Combined_v2.ipynb
 ```
 
 ### 4. Execute Analysis
